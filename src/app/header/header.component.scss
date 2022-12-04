@@ -1,0 +1,16 @@
+ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  li {
+    a {
+      text-decoration: none;
+      //  color: white;
+    }
+  }
+}
+
+.spacer {
+  flex-grow: 1;
+}
