@@ -1,43 +1,44 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { PostCreateComponent } from './posts/post-create/post-create.component';
-import { PostListComponent } from './posts/post-list/post-list.component';
 import { HeaderComponent } from './header/header.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
+import { ErrorHandlerInterceptor } from './shared/interceptor/error-handler.interceptor';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ErrorComponent } from './error/error.component';
+import { AngularMaterialModule } from './angular-material/angular-material.module';
+import { PostsModule } from './posts/posts.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PostCreateComponent,
-    HeaderComponent,
-    PostListComponent,
-  ],
+  declarations: [AppComponent, HeaderComponent, ErrorComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule,
-    MatToolbarModule,
-    MatExpansionModule,
-    HttpClientModule,
+    AngularMaterialModule,
     AppRoutingModule,
-    MatProgressSpinnerModule,
-    ReactiveFormsModule,
+    HttpClientModule,
+    AuthModule,
+    PostsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorHandlerInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent],
 })
 export class AppModule {}

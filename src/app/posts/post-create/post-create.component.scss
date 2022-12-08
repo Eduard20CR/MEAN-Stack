@@ -10,7 +10,14 @@ input[type="file"] {
   visibility: hidden;
 }
 
-.image-prev,
-.image-prev img {
-  width: 100%;
+.filePicker {
+  margin: 1rem 0;
+}
+
+.image-prev {
+  margin: 1rem 0;
+  height: 8rem;
+  img {
+    height: 100%;
+  }
 }

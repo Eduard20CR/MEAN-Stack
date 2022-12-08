@@ -9,3 +9,14 @@
 mat-spinner {
   margin: auto;
 }
+
+.post-image {
+  width: 100%;
+  img {
+    width: 100%;
+  }
+}
+
+mat-paginator {
+  margin-top: 2rem;
+}
